@@ -1,15 +1,37 @@
 package com.gmail.generics;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 public class GenericMethods {
+	
+	private static final WebElement target = null;
+	public static void getScreenShot(WebDriver driver, String name)
+	{
+		
+		 try 
+		 {
+			 TakesScreenshot t = (TakesScreenshot) driver;
+			 File src = t.getScreenshotAs(OutputType.FILE);
+			 File dest= new File("C:\\Users\\manoh\\git\\Gmail\\Gmail\\screenshot\\"+name+".png");
+			FileUtils.copyFile(src, dest);
+		}
+		catch (IOException e)
+		{
+		
+		}	 
+	}
 	//Click on Mails
 	public static void cilckOnMails(WebDriver driver, String mail)
 	{
@@ -97,6 +119,24 @@ public class GenericMethods {
 	{
 		Select select = new Select(element);
 		select.deselectAll();
+	}
+	public static WebElement getFirstSelectedOption(WebElement element)
+	{
+		Select sel= new Select(element);
+		WebElement firstSelectedOption = sel.getFirstSelectedOption();
+		return firstSelectedOption;
+	}
+	public static List<WebElement> getAlltSelectedOption(WebElement element)
+	{
+		Select sel= new Select(element);
+		List<WebElement> allSelectedOption = sel.getAllSelectedOptions();
+		return allSelectedOption;
+	}
+	public static List<WebElement> getOptions(WebElement element)
+	{
+		Select sel= new Select(element);
+		List<WebElement> options = sel.getOptions();
+		return options;
 	}
 	
 }
